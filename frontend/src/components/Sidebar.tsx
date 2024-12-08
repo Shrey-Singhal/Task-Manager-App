@@ -39,12 +39,12 @@ const Sidebar = () => {
                 </div>
 
                 {/* Navigation Section */}
-                <nav className="flex flex-col gap-2 transition duration-300 ml-4 mt-10 mr-4">
+                <nav className="flex flex-col gap-2 transition duration-500 ml-4 mt-10 mr-4">
                     {APPNAV_ITEMS.map((item) => {
                         const isActive = location.pathname === item.path;
                         const itemClass = isActive
-                            ? "flex items-center gap-4 p-4 bg-customLightBlue text-customDarkBlue rounded-xl transition duration-200 ease-in-out cursor-pointer"
-                            : "flex items-center gap-4 p-4 text-black rounded-xl transition duration-200 ease-in-out cursor-pointer";
+                            ? "flex items-center gap-4 p-4 bg-customLightBlue text-customDarkBlue rounded-xl transition duration-500 ease-in-out cursor-pointer"
+                            : "flex items-center gap-4 p-4 text-black rounded-xl transition duration-500 ease-in-out cursor-pointer";
 
                         return (
                             <Link to={item.path} key={item.title}>
