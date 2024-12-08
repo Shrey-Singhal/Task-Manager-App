@@ -6,6 +6,7 @@ export const getTasks = async (req: Request, res: Response) => {
     res.json(tasks);
 }
 
+// this endpoint can be used by the admin or for testing. Not using it for this task.
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const task = new Task(req.body);
@@ -21,7 +22,10 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
     const {id} = req.params;
 
     try {
-        await Task.findByIdAndDelete(id);
+        const deletedTask = await Task.findByIdAndDelete(id);
+        if (!deletedTask) {
+            res.status(404).json({message: "Task not found or deleted already"});
+        }
         res.status(201).json({message: "Task deleted successfully"});
     }catch (error) {
         next(error);
