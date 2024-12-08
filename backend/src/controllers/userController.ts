@@ -2,6 +2,11 @@ import Task from "../models/task";
 import User from "../models/user";
 import { Response, Request, NextFunction } from "express";
 
+export const getUsers = async (req: Request, res: Response) => {
+    const users = await User.find();
+    res.json(users);
+}
+
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body;
     try {
@@ -35,7 +40,18 @@ export const addUserTask = async (req: Request, res: Response, next: NextFunctio
             task: newTask,
             user,
         });
-        
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const getUserTasks = async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+    try{
+        const user = await User.findById(userId).populate("tasks");
+
+        res.status(200).json(user?.tasks);
     } catch (error) {
         next(error);
     }
