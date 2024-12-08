@@ -17,7 +17,8 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 }
-
+// adds a task in the Task collection in mongo db and appends the task id to the tasks list in 
+// user model which acts as a reference to the task.
 export const addUserTask = async (req: Request, res: Response, next: NextFunction) => {
     const {userId} = req.params;
     const { title, description, status, dueDate } = req.body;
