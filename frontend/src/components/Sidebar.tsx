@@ -43,7 +43,7 @@ const Sidebar = () => {
                     {APPNAV_ITEMS.map((item) => {
                         const isActive = location.pathname === item.path;
                         const itemClass = isActive
-                            ? "flex items-center gap-4 p-4 bg-customLightBlue text-customDarkBlue rounded-xl transition duration-500 ease-in-out cursor-pointer"
+                            ? "flex items-center gap-4 p-4 bg-customLightBlue text-customDarkBlue font-semibold rounded-xl transition duration-500 ease-in-out cursor-pointer"
                             : "flex items-center gap-4 p-4 text-black rounded-xl transition duration-500 ease-in-out cursor-pointer";
 
                         return (

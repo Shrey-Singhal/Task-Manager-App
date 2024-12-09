@@ -1,11 +1,31 @@
-import React from 'react'
+import React from "react";
+import { useAuth } from "../contexts/authContext";
+import { LogOut } from "lucide-react";
 
-const Header = () => {
+const Header: React.FC = () => {
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <div className='flex h-20 bg-customGrey border-b border-gray-200 items-center'>
-        <h1 className='pl-6 font-bold text-xl'>Tasks</h1>
-    </div>
-  )
-}
+    <div className="flex items-center justify-between h-20 px-6 bg-gray-100 border-b border-gray-200">
+      {/* Left Content */}
+      <h1 className="text-xl font-bold text-gray-800">Tasks</h1>
 
-export default Header
+      {/* Right Content */}
+      <div className="ml-auto flex flex-col items-center">
+        <button
+          onClick={handleLogout}
+          className="flex flex-col items-center text-gray-600 hover:text-gray-800"
+        >
+          <LogOut size={24} className="mb-1" />
+          <span className="text-xs font-medium">Logout</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
