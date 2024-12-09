@@ -68,7 +68,7 @@ const Login: React.FC = () => {
         if (valid_email && valid_password) {
 
             login(loggedInUser);
-            setTimeout(() => navigate("/"), 1500);
+            setTimeout(() => navigate("/dashboard"), 1500);
         }
 
     }

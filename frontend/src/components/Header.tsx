@@ -1,12 +1,15 @@
 import React from "react";
 import { useAuth } from "../contexts/authContext";
 import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
+    setTimeout(() => navigate("/login"), 1500);
   };
 
   return (

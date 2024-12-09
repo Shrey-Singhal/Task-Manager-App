@@ -10,6 +10,7 @@ import Trash from "./pages/Trash";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { AuthProvider } from "./contexts/authContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -18,11 +19,13 @@ function App() {
         <Routes>
           <Route             
             element={
-              <SidebarProvider>
-                <Layout />
-              </SidebarProvider>            
+              <ProtectedRoute>
+                <SidebarProvider>
+                  <Layout />
+                </SidebarProvider>
+              </ProtectedRoute>                         
             }>
-            <Route index path='/' element={<Navigate to='/dashboard' />} />
+            <Route index path='/' element={<Navigate to='/login' />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/todo" element={<ToDo />} />
             <Route path="/inprogress" element={<InProgress />} />
