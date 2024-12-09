@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
         } flex-1 bg-white`}
       >
         <Header />
-        <div className="pl-6 mt-4">
+        <div className="mt-4">
           <Outlet />
         </div>
         

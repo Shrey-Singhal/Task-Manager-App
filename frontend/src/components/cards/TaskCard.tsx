@@ -9,7 +9,7 @@ interface TaskCardProps {
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange }) => {
   return (
-    <div className="bg-white p-4 rounded shadow-md border border-gray-200">
+    <div className="bg-white p-4 rounded shadow-md border border-gray-200 flex flex-col space-y-2 md:space-y-4">
       <h3 className="text-lg font-semibold">{task.title}</h3>
       <p className="text-sm text-gray-500">{task.description}</p>
       <p className="text-sm text-gray-400">Due: {new Date(task.dueDate).toDateString()}</p>
@@ -24,7 +24,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange }) => {
         <option value="Completed">Completed</option>
       </select>
 
-      <div className="flex justify-end mt-4 space-x-2">
+      <div className="flex justify-end mt-2 md:mt-4 space-x-2">
         <button className="text-blue-500">
           <Edit size={20} />
         </button>
