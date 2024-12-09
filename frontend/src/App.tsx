@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { AuthProvider } from "./contexts/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { TasksProvider } from "./contexts/tasksContext";
 
 function App() {
   return (
@@ -21,7 +22,10 @@ function App() {
             element={
               <ProtectedRoute>
                 <SidebarProvider>
-                  <Layout />
+                  <TasksProvider>
+                    <Layout />
+                  </TasksProvider>
+                  
                 </SidebarProvider>
               </ProtectedRoute>                         
             }>
