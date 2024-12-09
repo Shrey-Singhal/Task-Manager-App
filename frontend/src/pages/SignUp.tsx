@@ -137,8 +137,15 @@ const SignUp = () => {
                     text-customLightBlue transition duration-200 bg-customDarkBlue hover:brightness-150 w-full mb-1"
                 />
             </form>
+            <div className="flex justify-between text-blue-500 mt-2 text-sm">
+                Aready have an account?
+                <button
+                    onClick={() => navigate("/login")}
+                    className="font-bold bg-transparent border-none text-blue-500 cursor-pointer">
+                    Log In
+                </button>
+            </div>
         </div>
-
     </div>
 
   )
