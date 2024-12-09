@@ -9,7 +9,10 @@ export default {
       colors: {
         customGrey: '#FAF9F8',
         customDarkBlue: '#272783',
-        customLightBlue: '#EDECF5'
+        customLightBlue: '#EDECF5',
+        customPurple: '#EBE5FF',
+        customSkyBlue: '#DFF5F8',
+        customGreen: '#E3F7DA'
       },
     },
   },

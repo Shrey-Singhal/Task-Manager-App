@@ -13,7 +13,6 @@ const Dashboard: React.FC = () => {
 
   const handleStatusChange = (taskId: string, newStatus: string) => {
     updateTaskStatus(taskId, newStatus as "To Do" | "In Progress" | "Completed");
-    // Optionally, update backend here.
   };
 
   const groupedTasks = {
@@ -22,15 +21,26 @@ const Dashboard: React.FC = () => {
     "Completed": tasks.filter((task) => task.status === "Completed"),
   };
 
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case "To Do":
+        return "bg-customPurple";
+      case "In Progress":
+        return "bg-customSkyBlue";
+      case "Completed":
+        return "bg-customGreen";
+    }
+  }
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Welcome, {user?.name}</h1>
+        <h1 className="text-2xl font-semibold">Welcome, {user?.name}</h1>
         <button
           onClick={toggleCreateTaskCard}
-          className="bg-customDarkBlue text-customLightBlue px-4 py-2 rounded hover:brightness-125"
+          className="bg-customDarkBlue text-white px-4 py-2 rounded hover:brightness-125"
         >
-          Create Task
+          Add Task
         </button>
       </div>
 
@@ -44,7 +54,10 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-3 gap-4">
         {Object.entries(groupedTasks).map(([status, tasks]) => (
           <div key={status}>
-            <h2 className="text-lg font-bold mb-4">{status}</h2>
+            <div className={`mb-4 p-2 rounded-md ${getStatusClass(status)}`}>
+              <h2 className="text-lg font-bold ml-2">{status}</h2>
+            </div>
+            
             <div className="space-y-4">
               {tasks.map((task) => (
                 <TaskCard
