@@ -1,8 +1,9 @@
 import React from "react";
 import Sidebar from "./sidebar";
 import { useSidebar } from "../contexts/sidebarContext";
+import { Outlet } from "react-router-dom";
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC = () => {
   const {isCollapsed} = useSidebar();
 
   return (
@@ -13,7 +14,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           isCollapsed ? "ml-[5rem]" : "ml-[16rem]"
         } flex-1 bg-white p-6`}
       >
-        {children}
+        <Outlet />
       </main>
     </div>
   );
