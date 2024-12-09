@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-between h-20 px-6 bg-gray-100 border-b border-gray-200">
+    <div className="flex items-center justify-between h-20 px-6 bg-customGrey border-b border-gray-200">
       {/* Left Content */}
       <h1 className="text-xl font-bold text-gray-800">Tasks</h1>
 
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
       <div className="ml-auto flex flex-col items-center">
         <button
           onClick={handleLogout}
-          className="flex flex-col items-center text-gray-600 hover:text-gray-800"
+          className="flex flex-col items-center text-gray-800 hover:text-gray-600"
         >
           <LogOut size={24} className="mb-1" />
           <span className="text-xs font-medium">Logout</span>
