@@ -8,6 +8,7 @@ import InProgress from "./pages/InProgress";
 import Completed from "./pages/Completed";
 import Trash from "./pages/Trash";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/trash" element={<Trash />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           
         </Routes>
         

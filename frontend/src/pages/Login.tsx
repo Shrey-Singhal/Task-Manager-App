@@ -25,7 +25,7 @@ interface User {
     tasks?: Task[];
 }
 
-const Profile: React.FC = () => {
+const Login: React.FC = () => {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
@@ -45,7 +45,6 @@ const Profile: React.FC = () => {
                 }
                 const userData = await response.json();
                 set_all_users(userData);
-                console.log(all_users);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }
@@ -75,50 +74,50 @@ const Profile: React.FC = () => {
     }
 
     return(
-    <div className="min-h-screen flex flex-col items-center bg-customGrey ">
-        <h2 className="text-3xl font-semibold text-black mt-20 mb-6">Welcome Back</h2>
-        <div className="w-[380px] bg-white p-4  rounded-md mt-inner_padding shadow-xl">
-            <form onSubmit={submitSignIn}>
-                <LoginInput
-                    htmlFor="email"
-                    input_type="email"
-                    update_on_change={setUserEmail}
-                    boolean_check={valid_login_details.email_validity}
+        <div className="min-h-screen flex flex-col items-center bg-customGrey ">
+            <h2 className="text-3xl font-semibold text-black mt-20 mb-6">Welcome Back</h2>
+            <div className="w-[380px] bg-white p-4  rounded-md mt-inner_padding shadow-xl">
+                <form onSubmit={submitSignIn}>
+                    <LoginInput
+                        htmlFor="email"
+                        input_type="email"
+                        update_on_change={setUserEmail}
+                        boolean_check={valid_login_details.email_validity}
 
-                >
-                    The email address you entered isn't connected to an account.
-                </LoginInput>
+                    >
+                        The email address you entered isn't connected to an account.
+                    </LoginInput>
 
-                <LoginInput
-                    htmlFor="password"
-                    input_type="password"
-                    update_on_change={setUserPassword}
-                    boolean_check={valid_login_details.password_validity}
-                >
-                    The password that you've entered is incorrect.
-                </LoginInput>
+                    <LoginInput
+                        htmlFor="password"
+                        input_type="password"
+                        update_on_change={setUserPassword}
+                        boolean_check={valid_login_details.password_validity}
+                    >
+                        The password that you've entered is incorrect.
+                    </LoginInput>
 
-                <input
-                    type ="submit"
-                    value = "Log In"
-                    className="p-[5px] pl-[16px] pr-[16px] rounded-[6px] text-sm leading-5 cursor-pointer
-                    text-customLightBlue transition duration-200 bg-customDarkBlue hover:brightness-150 w-full mb-1"
-                />
-            </form>
+                    <input
+                        type ="submit"
+                        value = "Log In"
+                        className="p-[5px] pl-[16px] pr-[16px] rounded-[6px] text-sm leading-5 cursor-pointer
+                        text-customLightBlue transition duration-200 bg-customDarkBlue hover:brightness-150 w-full mb-1"
+                    />
+                </form>
 
-            <div className="flex justify-between text-blue-500 mt-2 text-sm">
-                Don't have an account?
-                <button
-                    onClick={() => navigate("/SignUp")}
-                    className="font-bold bg-transparent border-none text-blue-500 cursor-pointer">
-                    Sign Up
-                </button>
+                <div className="flex justify-between text-blue-500 mt-2 text-sm">
+                    Don't have an account?
+                    <button
+                        onClick={() => navigate("/signUp")}
+                        className="font-bold bg-transparent border-none text-blue-500 cursor-pointer">
+                        Sign Up
+                    </button>
+                </div>
             </div>
+
         </div>
 
-    </div>
-
-)
+    )
 };
 
-export default Profile
+export default Login
