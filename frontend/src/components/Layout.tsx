@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "./sidebar";
 import { useSidebar } from "../contexts/sidebarContext";
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
 
 const Layout: React.FC = () => {
   const {isCollapsed} = useSidebar();
@@ -12,9 +13,13 @@ const Layout: React.FC = () => {
       <main 
         className={`transition-all duration-500 ${
           isCollapsed ? "ml-[5rem]" : "ml-[16rem]"
-        } flex-1 bg-white p-6`}
+        } flex-1 bg-white`}
       >
-        <Outlet />
+        <Header />
+        <div className="pl-6 mt-4">
+          <Outlet />
+        </div>
+        
       </main>
     </div>
   );

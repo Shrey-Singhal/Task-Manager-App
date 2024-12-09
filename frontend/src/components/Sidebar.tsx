@@ -12,7 +12,7 @@ const Sidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
 
-    const sidebarBaseClass = "fixed text-black bg-customGrey h-full shadow-lg shadow-gray-900/200 transition ease-in-out duration-500 transition-all";
+    const sidebarBaseClass = "fixed text-black bg-customGrey h-full border-r border-gray-200 transition ease-in-out duration-500 transition-all";
     const sidebarClasses = isCollapsed 
         ? `${sidebarBaseClass} w-[5rem]` // width when collapsed
         : `${sidebarBaseClass} w-[16rem]`; // normal width
@@ -32,8 +32,8 @@ const Sidebar = () => {
             {/* Sidebar */}
             <aside className={sidebarClasses}>
                 {/* Title Section */}
-                <div className="flex items-center justify-center py-5 px-3.5 mt-4">
-                    <h1 className={`text-2xl text-Black font-bold text-center transition-all ${isCollapsed ? "hidden" : "block"}`}>
+                <div className="flex items-center justify-center py-7 px-3.5">
+                    <h1 className={`text-xl text-Black font-bold text-center transition-all ${isCollapsed ? "hidden" : "block"}`}>
                         Task Manager
                     </h1>
                 </div>
