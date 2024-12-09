@@ -1,9 +1,7 @@
 import LoginInput from "../components/LoginInput";
 import {useNavigate} from "react-router-dom";
-//import { useAuth } from '../context/authContext.tsx';
-
-//import { set_item_local_storage, get_item_local_storage, set_current_user_local_storage} from "@/Components/Profile/localStorage.tsx";
 import React, {useEffect, useState} from 'react';
+import { useAuth } from "../contexts/authContext";
 
 interface ValidLogInDetails {
     email_validity: boolean;
@@ -36,6 +34,8 @@ const Login: React.FC = () => {
     });
     const [all_users, set_all_users] = useState<User[]>([]);
 
+    const { login } = useAuth();
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -67,7 +67,7 @@ const Login: React.FC = () => {
 
         if (valid_email && valid_password) {
 
-            console.log(loggedInUser);
+            login(loggedInUser);
             setTimeout(() => navigate("/"), 1500);
         }
 

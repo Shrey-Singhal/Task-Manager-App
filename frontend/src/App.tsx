@@ -9,10 +9,11 @@ import Completed from "./pages/Completed";
 import Trash from "./pages/Trash";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import { AuthProvider } from "./contexts/authContext";
 
 function App() {
   return (
-
+    <AuthProvider>
       <BrowserRouter>        
         <Routes>
           <Route             
@@ -34,6 +35,9 @@ function App() {
         </Routes>
         
       </BrowserRouter>
+
+    </AuthProvider>
+      
 
   );
 }

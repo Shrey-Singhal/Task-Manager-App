@@ -1,8 +1,10 @@
 import React from 'react'
+import { useAuth } from '../contexts/authContext'
 
 function Dashboard() {
+  const { user } = useAuth();
   return (
-    <div>Dashboard</div>
+    <div>{user?.name}</div>
   )
 }
 
