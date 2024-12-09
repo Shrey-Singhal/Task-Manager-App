@@ -3,10 +3,12 @@ import "dotenv/config";
 //import Task from "./models/Task";
 import taskRoutes from "./routes/taskRoutes"
 import userRoutes from "./routes/userRoutes"
+import cors from "cors"
 
 const app = express()
 
 // Middleware
+app.use(cors()); // Allow all origins
 app.use(express.json()); // Parse JSON requests
 
 app.use("/api/tasks", taskRoutes);
