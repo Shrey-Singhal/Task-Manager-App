@@ -5,9 +5,10 @@ import { Edit, Trash } from "lucide-react";
 interface TaskCardProps {
   task: Task;
   onStatusChange: (taskId: string, newStatus: string) => void;
+  onEdit: (task: Task) => void;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange, onEdit }) => {
   return (
     <div className="bg-white p-4 rounded shadow-md border border-gray-200 flex flex-col space-y-2 md:space-y-4">
       <h3 className="text-lg font-semibold">{task.title}</h3>
@@ -25,7 +26,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange }) => {
       </select>
 
       <div className="flex justify-end mt-2 md:mt-4 space-x-2">
-        <button className="text-blue-500">
+        <button className="text-blue-500" onClick={() => onEdit(task)}>
           <Edit size={20} />
         </button>
         <button className="text-red-500">

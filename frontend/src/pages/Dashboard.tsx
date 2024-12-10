@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/authContext";
 import { useTasks } from "../contexts/tasksContext";
 import CreateTaskCard from "../components/cards/CreateTaskCard";
 import TaskCard from "../components/cards/TaskCard";
+import EditTaskCard from "../components/cards/EditTaskCard";
+
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const { tasks, updateTask, fetchTasks } = useTasks();
-  const [isCreateTaskOpen, setIsCreateTaskOpen] = React.useState(false);
+  const [isCreateTaskOpen, setIsCreateTaskOpen] = useState<boolean>(false);
+  const [isEditTaskOpen, setIsEditTaskOpen] = useState<boolean>(false);
+  const [taskToEdit, setTaskToEdit] = useState<string>("");
 
   const toggleCreateTaskCard = () => setIsCreateTaskOpen((prev) => !prev);
+
+  const openEditTaskCard = (taskID: string) => {
+    setTaskToEdit(taskID);
+    setIsEditTaskOpen(true);
+  }
+
+  const closeEditTaskCard = () => {
+    setTaskToEdit("");
+    setIsEditTaskOpen(false);
+  };
 
   const handleStatusChange = async (taskId: string, newStatus: string) => {
     try{
@@ -57,6 +71,13 @@ const Dashboard: React.FC = () => {
         />
       )}
 
+      {isEditTaskOpen && (
+        <EditTaskCard 
+          taskId={taskToEdit}
+          onClose={closeEditTaskCard}
+        />
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Object.entries(groupedTasks).map(([status, tasks]) => (
           <div key={status}>
@@ -70,6 +91,7 @@ const Dashboard: React.FC = () => {
                   key={task._id}
                   task={task}
                   onStatusChange={handleStatusChange}
+                  onEdit={()=> openEditTaskCard(task._id)}
                 />
               ))}
             </div>
