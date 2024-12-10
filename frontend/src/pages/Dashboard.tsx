@@ -77,7 +77,8 @@ const Dashboard: React.FC = () => {
       {isCreateTaskOpen && (
         <CreateTaskCard 
           userId={user?._id} 
-          onClose={toggleCreateTaskCard} 
+          onClose={toggleCreateTaskCard}
+          onTaskCreated={fetchTasks}
         />
       )}
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTasks } from "../../contexts/tasksContext";
 
 interface ITask {
   title: string;
@@ -11,10 +10,11 @@ interface ITask {
 interface CreateTaskCardProps {
   userId: string | undefined;
   onClose: () => void;
+  onTaskCreated: () => void;
 }
 
-const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose }) => {
-  const {fetchTasks} = useTasks();
+const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose, onTaskCreated }) => {
+
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
@@ -44,8 +44,8 @@ const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose }) => {
       });
 
       if (!response.ok) throw new Error("Failed to create task");
-      await fetchTasks();
-    
+
+      onTaskCreated(); // used to trigger refetching in dashboard
       onClose(); // Close the card after successful submission
       
     } catch (error) {
