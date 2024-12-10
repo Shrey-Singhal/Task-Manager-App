@@ -23,10 +23,24 @@ const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
     dueDate: new Date()
   });
 
-  const handleSubmit = async () => {
-    await updateTask(taskId, {title: task.title, description: task.description, status: task.status, dueDate: task.dueDate});
-    await fetchTasks();
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    try {
+      await updateTask(taskId, {
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        dueDate: task.dueDate,
+      });
+  
+      await fetchTasks();
+  
+      onClose();
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;

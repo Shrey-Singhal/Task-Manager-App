@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTasks } from "../../contexts/tasksContext";
 
 interface ITask {
   title: string;
@@ -13,6 +14,7 @@ interface CreateTaskCardProps {
 }
 
 const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose }) => {
+  const {fetchTasks} = useTasks();
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
@@ -42,10 +44,9 @@ const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose }) => {
       });
 
       if (!response.ok) throw new Error("Failed to create task");
-
-      const data = await response.json();
-      console.log("Task added:", data);
+    
       onClose(); // Close the card after successful submission
+      await fetchTasks;
     } catch (error) {
       console.error("Error creating task:", error);
     }
