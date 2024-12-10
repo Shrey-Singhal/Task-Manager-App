@@ -44,9 +44,10 @@ const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose }) => {
       });
 
       if (!response.ok) throw new Error("Failed to create task");
+      await fetchTasks();
     
       onClose(); // Close the card after successful submission
-      await fetchTasks;
+      
     } catch (error) {
       console.error("Error creating task:", error);
     }
