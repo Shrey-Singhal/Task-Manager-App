@@ -6,9 +6,10 @@ interface TaskCardProps {
   task: Task;
   onStatusChange: (taskId: string, newStatus: string) => void;
   onEdit: (task: Task) => void;
+  onDelete: () => void;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange, onEdit }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange, onEdit, onDelete }) => {
   return (
     <div className="bg-white p-4 rounded shadow-md border border-gray-200 flex flex-col space-y-2 md:space-y-4">
       <h3 className="text-lg font-semibold">{task.title}</h3>
@@ -29,7 +30,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onStatusChange, onEdit }) => 
         <button className="text-blue-500" onClick={() => onEdit(task)}>
           <Edit size={20} />
         </button>
-        <button className="text-red-500">
+        <button className="text-red-500" onClick={onDelete}>
           <Trash size={20} />
         </button>
       </div>

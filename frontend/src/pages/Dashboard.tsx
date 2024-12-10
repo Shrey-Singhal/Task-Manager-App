@@ -25,6 +25,16 @@ const Dashboard: React.FC = () => {
     setIsEditTaskOpen(false);
   };
 
+  const handleDeleteTask = async (taskId: string) => {
+    const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) throw new Error("Failed to delete task");
+
+    await fetchTasks();
+  }
+
   const handleStatusChange = async (taskId: string, newStatus: string) => {
     try{
       await updateTask(taskId, { status: newStatus as "To Do" | "In Progress" | "Completed" });
@@ -92,6 +102,7 @@ const Dashboard: React.FC = () => {
                   task={task}
                   onStatusChange={handleStatusChange}
                   onEdit={()=> openEditTaskCard(task._id)}
+                  onDelete={() => handleDeleteTask(task._id)}
                 />
               ))}
             </div>
