@@ -6,13 +6,19 @@ import TaskCard from "../components/cards/TaskCard";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const { tasks, updateTaskStatus } = useTasks();
+  const { tasks, updateTask, fetchTasks } = useTasks();
   const [isCreateTaskOpen, setIsCreateTaskOpen] = React.useState(false);
 
   const toggleCreateTaskCard = () => setIsCreateTaskOpen((prev) => !prev);
 
-  const handleStatusChange = (taskId: string, newStatus: string) => {
-    updateTaskStatus(taskId, newStatus as "To Do" | "In Progress" | "Completed");
+  const handleStatusChange = async (taskId: string, newStatus: string) => {
+    try{
+      await updateTask(taskId, { status: newStatus as "To Do" | "In Progress" | "Completed" });
+      await fetchTasks();
+    }
+    catch (error) {
+      console.error("Error updating the task: ", error);
+    }
   };
 
   const groupedTasks = {

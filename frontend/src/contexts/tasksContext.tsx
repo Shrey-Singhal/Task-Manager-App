@@ -11,7 +11,7 @@ export interface Task {
 
 interface TasksContextProps {
   tasks: Task[];
-  updateTaskStatus: (taskId: string, newStatus: Task["status"]) => void;
+  updateTask: (taskId: string, updates: Partial<Task>) => Promise<void>;
   fetchTasks: () => void;
 }
 
@@ -35,12 +35,26 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const updateTaskStatus = (taskId: string, newStatus: Task["status"]) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task._id === taskId ? { ...task, status: newStatus } : task
-      )
-    );
+  const updateTask = async (taskId: string, updates: Partial<Task>) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updates),
+      });
+      if (!response.ok) throw new Error("Failed to update task");
+
+      const updatedTask: Task = await response.json();
+
+      // Update local state
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task._id === taskId ? updatedTask : task))
+      );
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +62,7 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [user]);
 
   return (
-    <TasksContext.Provider value={{ tasks, updateTaskStatus, fetchTasks }}>
+    <TasksContext.Provider value={{ tasks, updateTask, fetchTasks }}>
       {children}
     </TasksContext.Provider>
   );
