@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-between h-20 px-6 bg-customGrey border-b border-gray-200">
+    <div className="flex items-center justify-between h-20 px-6 bg-customGrey border-b border-gray-200 sticky top-0">
       {/* Left Content */}
       <h1 className="text-xl font-bold text-gray-800">Tasks</h1>
 
