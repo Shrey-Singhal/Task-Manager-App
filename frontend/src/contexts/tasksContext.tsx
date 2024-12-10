@@ -6,7 +6,7 @@ export interface Task {
   title: string;
   description?: string;
   status: "To Do" | "In Progress" | "Completed";
-  dueDate: string;
+  dueDate: Date;
 }
 
 interface TasksContextProps {

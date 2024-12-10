@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useTasks } from '../../contexts/tasksContext';
 
 interface ITask {
   title: string;
@@ -8,11 +9,13 @@ interface ITask {
 }
 
 interface EditTaskCardProps {
-  taskId: string | undefined;
+  taskId: string;
   onClose: () => void;
 }
 
 const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
+  const {updateTask, fetchTasks} = useTasks();
+
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
@@ -20,13 +23,17 @@ const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
     dueDate: new Date()
   });
 
-  const handleSubmit = () => {
-    setTask((prevTask) => prevTask);
-    console.log(taskId);
+  const handleSubmit = async () => {
+    await updateTask(taskId, {title: task.title, description: task.description, status: task.status, dueDate: task.dueDate});
+    await fetchTasks();
   }
 
-  const handleChange = () => {
-
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setTask((prevTask) => ({
+      ...prevTask,
+      [name]: name === "dueDate" ? new Date(value) : value
+    }))
   }
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
