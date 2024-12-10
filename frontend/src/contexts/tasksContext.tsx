@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./authContext";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export interface Task {
   _id: string;
@@ -26,7 +25,7 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (!user?._id) return;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users/${user._id}/tasks`);
+      const response = await fetch(`https://task-manager-app-backend-zu9l.onrender.com/api/users/${user._id}/tasks`);
       if (!response.ok) throw new Error("Failed to fetch tasks");
 
       const data: Task[] = await response.json();
@@ -38,7 +37,7 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const updateTask = async (taskId: string, updates: Partial<Task>) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
+      const response = await fetch(`https://task-manager-app-backend-zu9l.onrender.com/api/tasks/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

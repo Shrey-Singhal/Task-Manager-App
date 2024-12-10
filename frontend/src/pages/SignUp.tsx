@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import LoginInput from '../components/LoginInput'
 import { useNavigate } from 'react-router-dom';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface Task {
   _id: string;
@@ -37,7 +36,7 @@ const SignUp = () => {
   useEffect(()=> {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/users`);
+        const response = await fetch(`https://task-manager-app-backend-zu9l.onrender.com/api/users`);
         if (!response.ok) {
             throw new Error('Failed to fetch users');
         }
@@ -52,7 +51,7 @@ const SignUp = () => {
 
   const createUserInDatabase = async (userName: string, userEmail: string, userPassword: string) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users`, {
+      const response = await fetch(`https://task-manager-app-backend-zu9l.onrender.com/api/users`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
