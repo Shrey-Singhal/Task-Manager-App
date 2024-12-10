@@ -4,6 +4,7 @@ import { useTasks } from "../contexts/tasksContext";
 import CreateTaskCard from "../components/cards/CreateTaskCard";
 import TaskCard from "../components/cards/TaskCard";
 import EditTaskCard from "../components/cards/EditTaskCard";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 
 const Dashboard: React.FC = () => {
@@ -26,7 +27,7 @@ const Dashboard: React.FC = () => {
   };
 
   const handleDeleteTask = async (taskId: string) => {
-    const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
+    const response = await fetch(`${API_BASE_URL}/api/tasks/${taskId}`, {
       method: "DELETE"
     });
 

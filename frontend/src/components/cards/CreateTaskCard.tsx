@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface ITask {
   title: string;
@@ -33,7 +34,7 @@ const CreateTaskCard: React.FC<CreateTaskCardProps> = ({ userId, onClose }) => {
     if (!userId) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${userId}/tasks`, {
+      const response = await fetch(`${API_BASE_URL}/api/users/${userId}/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
