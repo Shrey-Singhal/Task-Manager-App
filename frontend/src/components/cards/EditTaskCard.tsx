@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { useTasks } from '../../contexts/tasksContext';
 
 interface ITask {
@@ -13,19 +13,28 @@ interface EditTaskCardProps {
   onClose: () => void;
 }
 
-const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
-  const {updateTask, fetchTasks} = useTasks();
+const EditTaskCard: React.FC<EditTaskCardProps> = ({ taskId, onClose }) => {
+  const { tasks, updateTask, fetchTasks } = useTasks();
 
-  const [task, setTask] = useState<ITask>({
-    title: "",
-    description: "",
-    status: "To Do",
-    dueDate: new Date()
-  });
+  const [task, setTask] = useState<ITask | null>(null);
+
+  // Fetch the current task details from the context
+  useEffect(() => {
+    const currentTask = tasks.find((t) => t._id === taskId);
+    if (currentTask) {
+      setTask({
+        title: currentTask.title,
+        description: currentTask.description || "",
+        status: currentTask.status,
+        dueDate: new Date(currentTask.dueDate),
+      });
+    }
+  }, [taskId, tasks]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+    if (!task) return;
+
     try {
       await updateTask(taskId, {
         title: task.title,
@@ -33,9 +42,8 @@ const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
         status: task.status,
         dueDate: task.dueDate,
       });
-  
+
       await fetchTasks();
-  
       onClose();
     } catch (error) {
       console.error("Error updating task:", error);
@@ -45,10 +53,16 @@ const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setTask((prevTask) => ({
-      ...prevTask,
-      [name]: name === "dueDate" ? new Date(value) : value
-    }))
+      ...prevTask!,
+      [name]: name === "dueDate" ? new Date(value) : value,
+    }));
+  };
+
+  // Display a loading state if task details are not yet available
+  if (!task) {
+    return <div>Loading...</div>;
   }
+
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded shadow-md w-[400px]">
@@ -129,6 +143,6 @@ const EditTaskCard: React.FC<EditTaskCardProps> = ({taskId, onClose}) => {
       </div>
     </div>
   );
-}
+};
 
-export default EditTaskCard
+export default EditTaskCard;
