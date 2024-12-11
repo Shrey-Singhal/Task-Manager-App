@@ -1,4 +1,4 @@
-import { Home,Trash2 } from "lucide-react";
+import { Home,Info } from "lucide-react";
 
 export const APPNAV_ITEMS = [
   {
@@ -7,8 +7,8 @@ export const APPNAV_ITEMS = [
     icon: <Home />,
   },
   {
-    title: "Trash",
-    path: "/trash",
-    icon: <Trash2 />
+    title: "About",
+    path: "/about",
+    icon: <Info />
   }
 ];
